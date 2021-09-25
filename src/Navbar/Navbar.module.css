@@ -1,0 +1,17 @@
+.navbar {
+  background-color: darkred;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.logo {
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+h2 {
+  cursor: pointer;
+  margin-right: 2rem;
+}

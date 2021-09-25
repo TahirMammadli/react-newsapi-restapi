@@ -1,0 +1,45 @@
+.news-list {
+  list-style: none;
+  color: white;
+}
+
+.item-box { 
+  position: relative; 
+  margin: 1rem 0;
+  border: 1px solid darkred;
+  box-shadow: 5px 5px 5px darkred;
+  padding: 0.5rem;
+  width: 97%;
+  height: auto;
+  background-color: darkred;
+}
+
+.item-box::after {
+  margin: 1rem 0;
+  border: 1px solid darkred;
+  box-shadow: 15px 15px 15px darkred;
+  padding: 1rem;
+  width: 70%;
+  height: 6rem;
+  background-color: darkred;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.item-box:hover::after {
+  opacity: 1;
+}
+
+
+.saved-article-list-item{
+
+}
+
+.saved-articles-list{
+  list-style: none;
+  overflow-y: scroll;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 95%;
+}
