@@ -23,11 +23,10 @@ const News = (props) => {
     fetch("http://localhost:8080/getSavedNews")
       .then((res) => res.json())
       .then((res) => setSavedArticlesState(res));
-  });
+  }, [savedArticlesState]);
 
-  function saveNewsHandler(article) {
+  const saveNewsHandler = useCallback((article) => {
     ctx.setIsLoading(true);
-    console.log(ctx.isLoading)
 
     fetch("http://localhost:8080/saveNews", {
       method: "POST",
@@ -42,7 +41,7 @@ const News = (props) => {
     }).then((res) => {
       ctx.setIsLoading(false);
     });
-  }
+  }, []);
 
   function deleteSavedHandler(articleId) {
     fetch(`http://localhost:8080/deleteSavedNews/${articleId}`, {
@@ -58,7 +57,7 @@ const News = (props) => {
   useEffect(() => {
     getNews();
     getSavedNews();
-  }, []);
+  }, [getSavedNews, saveNewsHandler]);
 
   return (
     <Fragment>
@@ -75,6 +74,7 @@ const News = (props) => {
               return (
                 <li className={styles["saved-article-list-item"]}>
                   <SavedNews
+                    key={article._id}
                     savedArticles={savedArticlesState}
                     article={article}
                     onDeleteSavedNews={deleteSavedHandler}
@@ -89,7 +89,11 @@ const News = (props) => {
         {articles.map((article) => {
           return (
             <li className={styles["item-box"]}>
-              <NewsItem article={article} onSaveNews={saveNewsHandler} />
+              <NewsItem
+                key={article._id}
+                article={article}
+                onSaveNews={saveNewsHandler}
+              />
             </li>
           );
         })}

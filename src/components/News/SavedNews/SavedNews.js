@@ -7,6 +7,7 @@ const SavedNews = (props) => {
   return (
     <Fragment>
       <h1>
+        
         <a className={styles.title} href={`/articles/`}>
           {article.title}
         </a>

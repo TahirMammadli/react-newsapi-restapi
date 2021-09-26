@@ -4,7 +4,6 @@ import styles from "./Modal.module.css";
 import NewsContext from "../../store/news-context";
 const ModalOverlay = (props) => {
   const ctx = useContext(NewsContext);
-  console.log(ctx.isLoading)
   return (
     <div className={ctx.isLoading ? styles["modal-overlay"] : styles["modal-overlay2"]}>{props.children}</div>
   )

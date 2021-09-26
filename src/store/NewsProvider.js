@@ -4,6 +4,8 @@ import React, { useState } from "react";
 const NewsProvider = (props) => {
   const [isLoading, setIsLoading] = useState(false);
 
+   
+
   const newsContext = {
     isLoading: isLoading,
     setIsLoading: setIsLoading,
