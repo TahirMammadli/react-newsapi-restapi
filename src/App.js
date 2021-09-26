@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Fragment } from "react/cjs/react.production.min";
-import Navbar from "./Navbar/Navbar";
-import News from "./News/News";
+import Navbar from './components/Navbar/Navbar'
+import News from "./components/News/News";
 import SingleArticle from "./Pages/SingleArticle/SingleArticle";
 import { Route } from "react-router";
 function App() {
@@ -15,7 +15,7 @@ function App() {
   function closeModalHandler() {
     setModalIsOpen(false);
   }
-
+  console.log('app js')
   return (
     <Fragment>
       <Navbar onOpenModal={openModalHandler} onCloseModal={closeModalHandler} />

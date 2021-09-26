@@ -1,0 +1,25 @@
+ul {
+  list-style: none;
+  color: red;
+}
+.title {
+  margin-left: 0;
+  cursor: pointer;
+  color: red;
+  text-decoration: none;
+}
+
+.title:active {
+  color: rgb(255, 100, 100);
+}
+button {
+  border: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+
+}
+
+button:active {
+  background-color: rgb(255, 100, 100);
+}

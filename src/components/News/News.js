@@ -1,9 +1,14 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
+import Loading from "../UI/Loading";
 import SavedNews from "./SavedNews/SavedNews";
 import NewsItem from "../NewsItem/NewsItem";
 import styles from "./News.module.css";
 import Modal from "../Modal/Modal";
+import NewsContext from "../../store/news-context";
+import { Fragment } from "react/cjs/react.production.min";
+
 const News = (props) => {
+  const ctx = useContext(NewsContext);
   const [articles, setArticles] = useState([]);
   const [savedArticlesState, setSavedArticlesState] = useState([]);
   const modalIsOpen = props.modalIsOpen;
@@ -21,6 +26,9 @@ const News = (props) => {
   });
 
   function saveNewsHandler(article) {
+    ctx.setIsLoading(true);
+    console.log(ctx.isLoading)
+
     fetch("http://localhost:8080/saveNews", {
       method: "POST",
       headers: {
@@ -31,17 +39,35 @@ const News = (props) => {
         content: article.content,
         description: article.description,
       }),
-    }).then((res) => console.log(res));
+    }).then((res) => {
+      ctx.setIsLoading(false);
+    });
   }
-  
+
+  function deleteSavedHandler(articleId) {
+    fetch(`http://localhost:8080/deleteSavedNews/${articleId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => console.log(res));
+  }
 
   useEffect(() => {
     getNews();
     getSavedNews();
-  }, [getSavedNews]);
+  }, []);
 
   return (
-    <div>
+    <Fragment>
+      {ctx.isLoading && (
+        <Modal>
+          <Loading />
+        </Modal>
+      )}
+
       {modalIsOpen && (
         <Modal onCloseModal={props.onCloseModal}>
           <ul className={styles["saved-articles-list"]}>
@@ -51,6 +77,7 @@ const News = (props) => {
                   <SavedNews
                     savedArticles={savedArticlesState}
                     article={article}
+                    onDeleteSavedNews={deleteSavedHandler}
                   />
                 </li>
               );
@@ -67,7 +94,7 @@ const News = (props) => {
           );
         })}
       </ul>
-    </div>
+    </Fragment>
   );
 };
 
